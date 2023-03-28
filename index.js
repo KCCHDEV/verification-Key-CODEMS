@@ -22,19 +22,14 @@ function getVerificationKeyById(Id) {
 }
 // Определить конечную точку API для проверки ключа и идентификатора
 app.get('/api/key/:keyId/:Id', (req, res) => {
-    const keyId = req.params.keyId;
-    const Id = req.params.Id;
-    // Получить ключ подтверждения на основе идентификатора ключа
-    const verificationKey = getVerificationKeyByKeyId(keyId);
+    const verificationKey = getVerificationKeyByKeyId(req.params.keyId);
     if (!verificationKey) {
         return res.status(404).json({ error: 'Key not found | Bot ใช้ code MS เถื่อน' });
     }
-    // Получить ключ подтверждения на основе идентификатора
-    const verificationId = getVerificationKeyById(Id);
+    const verificationId = getVerificationKeyById(req.params.Id);
     if (!verificationId) {
         return res.status(404).json({ error: 'ID not found | Bot ใช้ code MS เถื่อน' });
     }
-    // Выполните проверку с помощью ключей
     res.status(200).json({ pass: 'Bot is Verification' });
 });
 
